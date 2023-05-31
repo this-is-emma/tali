@@ -1,26 +1,31 @@
-# Pete's Pet Emporium!
+# Fabiola - Online Store
 
-This is the starter project of the Pete's Pet tutorial.
+Welcome to Fabiola, an online store that offers a wide range of products for shoppers. This repository contains the source code and related files for the Fabiola online store.
 
-## Tasks
+## Table of Contents
 
-### Simple Search & Pagination
-Add a search bar in the navbar to search pets. Paginate the results.
+- [Introduction](#introduction)
+- [Features](#features)
 
-### Validations
-Add validations to protect against unsanitary data getting into your db.
+## Introduction
 
-### Upload Images
-Upload pictures of pets from new and edit forms
+Fabiola is a full-fledged online store developed to provide users with a seamless shopping experience. It offers a user-friendly interface for browsing and purchasing products. This repository holds the codebase for the online store.
 
-### Payment Gateways
-Buy pets using Stripe.
+## Features
 
-### Send Emails
-Send an email when a pet is purchased.
+⏱ - To be implemented
 
-### Full Text Search
-Fuzzy and full-text search on multiple criteria
+🚧 - Work In Progress
 
-### Responding to JSON
-Make your project into a full API
+✅ - Completed
+
+| Status     | Feature                                                     |
+| ---------- | ----------------------------------------------------------- |
+| ⏱  | User authentication: Register and login to access personalized features. |
+| 🚧  | Product catalog: Browse a wide range of products with detailed information and images. |
+| ⏱  | Cart management: Add products to the cart, update quantities, and remove items. |
+| ⏱  | Order placement: Complete the checkout process to place an order. |
+| ⏱  | Payment integration: Support for secure payment methods. |
+| ⏱  | Order tracking: Track the status of placed orders. |
+| ⏱  | User profile: View and update personal information and order history. |
+| ⏱  | Mobile Payment Integration: Allow users to pay with mobile wallets. |
