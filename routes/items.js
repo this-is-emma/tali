@@ -60,8 +60,16 @@ module.exports = (app) => {
   app.get('/search', (req, res) => {
     term = new RegExp(req.query.term, 'i')
     
-    Item.find({'name': term}).exec((err, items) => {
-        res.render('items-index', { items: items });    
-    });
+    const page = req.query.page || 1
+    Item.paginate(
+      {
+        $or: [
+          { 'name': term },
+          { 'type': term }
+        ]
+      },
+      { page: page }).then((results) => {
+        res.render('items-index', { items: results.docs, pagesCount: results.pages, currentPage: page, term: req.query.term});
+      });
   });
 }
