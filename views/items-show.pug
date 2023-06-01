@@ -1,0 +1,15 @@
+extends layout
+
+block content
+  .row
+    .col-sm-4
+      if item.picUrlSq
+        img(src=item.picUrlSq).img-fluid
+    .col-sm-8
+      h1=item.name
+      p=item.species
+      p Born on #{item.birthday}
+      p=item.description
+      .text-right
+        a(href="/items/" + item.id + "/edit").btn-link Edit
+      

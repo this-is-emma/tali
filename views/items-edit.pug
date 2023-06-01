@@ -1,0 +1,33 @@
+extends layout
+
+block content
+    
+    .row.justify-content-center
+        .col-sm-6
+            legend New Item
+            form(action=`/items/${item._id}?_method=PUT`, method="POST")
+                .form-group
+                    label Name
+                    input.form-control(name="name" value=item.name)
+                .form-group
+                    label Birthday
+                    input.form-control(name="birthday" value=item.birthday)   
+                .form-group
+                    label Species
+                    input.form-control(name="species" value=item.species)    
+                .form-group
+                    label Rectangular Image URL
+                    input.form-control(name="picUrl" value=item.picUrl) 
+                .form-group
+                    label Square Image URL
+                    input.form-control(name="picUrlSq" value=item.picUrlSq) 
+                .form-group
+                    label Favorite Food
+                    input.form-control(name="favoriteFood" value=item.favoriteFood)    
+                .form-group
+                    label Description
+                    textarea.form-control(name="description")= item.description
+                button(type="submit").btn.btn-primary Save
+            .text-right
+                form(action=`/items/${item._id}?_method=DELETE`, method="POST")
+                    button(type="submit").btn.btn-danger Remove
