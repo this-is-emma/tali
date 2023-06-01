@@ -7,8 +7,8 @@ block content
         img(src=item.picUrlSq).img-fluid
     .col-sm-8
       h1=item.name
-      p=item.species
-      p Born on #{item.birthday}
+      p=item.type
+      p=item.price
       p=item.description
       .text-right
         a(href="/items/" + item.id + "/edit").btn-link Edit

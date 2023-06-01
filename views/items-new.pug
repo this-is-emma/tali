@@ -5,26 +5,29 @@ block content
   .row.justify-content-center
     .col-sm-6
       legend New item
-      form(action="/items", method="post")
+      form(action="#" id="new-item" required)
         .form-group
-            label Name
-            input.form-control(name="name")
+            label Name*
+            input.form-control(name="name" required)
         .form-group
-            label Birthday
-            input.form-control(name="birthday")
+            label Type*
+            input.form-control(name="type" required)
         .form-group
-            label Species
-            input.form-control(name="species")
+            label Rectangular Image URL*
+            input.form-control(name="picUrl" required type="url") 
         .form-group
-            label Rectangular Image URL
-            input.form-control(name="picUrl") 
+            label Square Image URL*
+            input.form-control(name="picUrlSq" required type="url")   
         .form-group
-            label Square Image URL
-            input.form-control(name="picUrlSq")   
+            label Price*
+            textarea.form-control(name="price" required)   
         .form-group
-            label Favorite Food
-            input.form-control(name="favoriteFood") 
+            label Description*
+            textarea.form-control(name="description" minlength="100")   
         .form-group
-            label Description
-            textarea.form-control(name="description")   
+            label Color*
+            input.form-control(name="color" required) 
+        .form-group
+            label Product Code*
+            input.form-control(name="productCode" required) 
         button(type="submit").btn.btn-primary Save

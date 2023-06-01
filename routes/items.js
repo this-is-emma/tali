@@ -17,10 +17,11 @@ module.exports = (app) => {
 
     item.save()
       .then((item) => {
-        res.redirect(`/items/${item._id}`);
+        res.send({ item: item });
       })
       .catch((err) => {
-        // Handle Errors
+        // STATUS OF 400 FOR VALIDATIONS
+        res.status(400).send(err.errors);
       }) ;
   });
 

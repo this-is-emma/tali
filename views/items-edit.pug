@@ -10,23 +10,26 @@ block content
                     label Name
                     input.form-control(name="name" value=item.name)
                 .form-group
-                    label Birthday
-                    input.form-control(name="birthday" value=item.birthday)   
-                .form-group
-                    label Species
-                    input.form-control(name="species" value=item.species)    
+                    label Type
+                    input.form-control(name="type" value=item.type)   
                 .form-group
                     label Rectangular Image URL
-                    input.form-control(name="picUrl" value=item.picUrl) 
+                    input.form-control(name="picUrl" value=item.picUrl)    
                 .form-group
                     label Square Image URL
                     input.form-control(name="picUrlSq" value=item.picUrlSq) 
                 .form-group
-                    label Favorite Food
-                    input.form-control(name="favoriteFood" value=item.favoriteFood)    
+                    label Price
+                    input.form-control(name="price" value=item.price) 
                 .form-group
                     label Description
-                    textarea.form-control(name="description")= item.description
+                    textarea.form-control(name="description" item.description)
+                .form-group
+                    label Color
+                    input.form-control(name="color" value=item.color)    
+                .form-group
+                    label Product Code
+                    input.form-control(name="productCode" value=item.productCode)    
                 button(type="submit").btn.btn-primary Save
             .text-right
                 form(action=`/items/${item._id}?_method=DELETE`, method="POST")
