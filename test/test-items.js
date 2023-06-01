@@ -2,7 +2,7 @@ const chai = require('chai');
 const chaiHttp = require('chai-http');
 const server = require('../server');
 const should = chai.should();
-const Pet = require('../models/pet');
+const Item = require('../models/item');
 
 const fido =     {
     "name": "Norman",

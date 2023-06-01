@@ -3,7 +3,7 @@
 const mongoose = require('mongoose'),
   Schema = mongoose.Schema;
 
-const itemsSchema = new Schema({
+const ItemSchema = new Schema({
     name            : { type: String, required: true }
   , type            : { type: String } //earring ? Necklace? bracelet?
   , picUrl          : { type: String }
@@ -30,4 +30,4 @@ const itemsSchema = new Schema({
 //   timestamps: true
 // });
 
-module.exports = mongoose.model('items', itemsSchema);
+module.exports = mongoose.model('items', ItemSchema);

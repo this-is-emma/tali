@@ -1,11 +1,11 @@
-const Pet = require('../models/items');
+const Item = require('../models/item');
 
 module.exports = (app) => {
 
   /* GET home page. */
   app.get('/', (req, res) => {
-    Pet.find().exec((err, pets) => {
-      res.render('pets-index', { pets: pets });    
+    Item.find().exec((err, items) => {
+      res.render('pets-index', { items: items });    
     });
   });
 }
