@@ -55,4 +55,13 @@ module.exports = (app) => {
       return res.redirect('/')
     });
   });
+
+  // SEARCH ITEM
+  app.get('/search', (req, res) => {
+    term = new RegExp(req.query.term, 'i')
+    
+    Item.find({'name': term}).exec((err, items) => {
+        res.render('items-index', { items: items });    
+    });
+  });
 }

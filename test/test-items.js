@@ -5,7 +5,7 @@ const should = chai.should();
 const Item = require('../models/item');
 
 const teresa =     {
-  "name": "Teresa",
+  "name": "teresa",
   "type": "earring",
   "picUrl": "some_url",
   "picUrlSq": "some_url",
@@ -118,4 +118,16 @@ describe('Items', ()  => {
       });
     });
   });
+
+
+// SEARCH
+it('should search ALL items by name on /search GET', (done) => {
+  chai.request(server)
+      .get('/search?term=teresa')
+      .end((err, res) => {
+        res.should.have.status(200);
+        res.should.be.html;
+        done();
+      });
+});
 });
