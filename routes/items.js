@@ -8,7 +8,7 @@ const Upload = require('s3-uploader');
 
 const client = new Upload(process.env.S3_BUCKET, {
   aws: {
-    path: 'pets/avatar',
+    path: 'items/avatar',
     region: process.env.S3_REGION,
     acl: 'public-read',
     accessKeyId: process.env.AWS_ACCESS_KEY_ID,
@@ -42,13 +42,13 @@ module.exports = (app) => {
 
   // CREATE ITEM
   app.post('/items', upload.single('avatar'), (req, res, next) => {
+    console.log(req.file)
     var item = new Item(req.body);
     item.save(function (err) {
       if (req.file) {
         // Upload the images
         client.upload(req.file.path, {}, function (err, versions, meta) {
           if (err) { return res.status(400).send({ err: err }) };
-
           // Pop off the -square and -standard and just use the one URL to grab the image
           versions.forEach(function (image) {
             var urlArray = image.url.split('-');
