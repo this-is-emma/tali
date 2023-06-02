@@ -5,7 +5,11 @@ block content
     each item, index in items
       .col-sm-4.justify-content-center
         .card
-          img.card-img-top(src=item.picUrl, alt='Card image cap')
+          //- img.card-img-top(src=item.picUrl, alt='Card image cap')
+          if item.avatarUrl
+            img.card-img-top(src=item.avatarUrl + '-standard.', alt='Card image cap')
+          else
+            img.card-img-top(src=item.picUrl, alt='Card image cap')
           .card-body
             h4.card-title= item.name
             small.text-muted= item.species

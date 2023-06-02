@@ -14,6 +14,7 @@ const ItemSchema = new Schema({
   , type            : { type: String, required: true } //earring ? Necklace? bracelet?
   , picUrl          : { type: String, required: true }
   , picUrlSq        : { type: String, required: true }
+  , avatarUrl       : { type: String, required: true }
   , price           : { type: String, required: true }
   , description     : { type: String, required: true, minlength: 100 }
   , color           : { type: String, required: true }

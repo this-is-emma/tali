@@ -1,6 +1,35 @@
 // MODELS
 const Item = require('../models/item');
 
+// UPLOADING TO AWS S3
+const multer  = require('multer');
+const upload = multer({ dest: 'uploads/' });
+const Upload = require('s3-uploader');
+
+const client = new Upload(process.env.S3_BUCKET, {
+  aws: {
+    path: 'pets/avatar',
+    region: process.env.S3_REGION,
+    acl: 'public-read',
+    accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+    secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY
+  },
+  cleanup: {
+    versions: true,
+    original: true
+  },
+  versions: [{
+    maxWidth: 400,
+    aspect: '16:10',
+    suffix: '-standard'
+  },{
+    maxWidth: 300,
+    aspect: '1:1',
+    suffix: '-square'
+  }]
+});
+
+
 // ITEM ROUTES
 module.exports = (app) => {
 
@@ -12,18 +41,30 @@ module.exports = (app) => {
   });
 
   // CREATE ITEM
-  app.post('/items', (req, res) => {
+  app.post('/items', upload.single('avatar'), (req, res, next) => {
     var item = new Item(req.body);
+    item.save(function (err) {
+      if (req.file) {
+        // Upload the images
+        client.upload(req.file.path, {}, function (err, versions, meta) {
+          if (err) { return res.status(400).send({ err: err }) };
 
-    item.save()
-      .then((item) => {
+          // Pop off the -square and -standard and just use the one URL to grab the image
+          versions.forEach(function (image) {
+            var urlArray = image.url.split('-');
+            urlArray.pop();
+            var url = urlArray.join('-');
+            item.avatarUrl = url;
+            item.save();
+          });
+
+          res.send({ item: item });
+        });
+      } else {
         res.send({ item: item });
-      })
-      .catch((err) => {
-        // STATUS OF 400 FOR VALIDATIONS
-        res.status(400).send(err.errors);
-      }) ;
-  });
+      }
+    })
+  })
 
   // SHOW ITEM
   app.get('/items/:id', (req, res) => {
