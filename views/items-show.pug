@@ -16,4 +16,13 @@ block content
       p=item.description
       .text-right
         a(href="/items/" + item.id + "/edit").btn-link Edit
+      form(action=`/items/${item._id}/purchase`, method='POST')
+        script.stripe-button(src='https://checkout.stripe.com/checkout.js',
+        data-key='pk_test_51NF5e1JWcWBt5hLru0nKvB5iaauDEwn6MtQbWsmARDUNYfQytcI9b7d6lUqYMWBjJQTfcjH69xaVRLIYBybZiPKR00X3puFeTP',
+        data-amount=item.price*100,
+        data-name='Tali',
+        data-description='Widget',
+        data-image='https://stripe.com/img/documentation/checkout/marketplace.png',
+        data-locale='auto',
+        data-zip-code='true')
       

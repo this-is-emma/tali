@@ -1,6 +1,6 @@
-# Fabiola - Online Store
+# Tali - Online Store
 
-Welcome to Fabiola, an online store that offers a wide range of products for shoppers. This repository contains the source code and related files for the Fabiola online store.
+Welcome to Tali, an online store that offers a wide range of products for shoppers. This repository contains the source code and related files for the Tali online store.
 
 ## Table of Contents
 
@@ -9,7 +9,7 @@ Welcome to Fabiola, an online store that offers a wide range of products for sho
 
 ## Introduction
 
-Fabiola is a full-fledged online store developed to provide users with a seamless shopping experience. It offers a user-friendly interface for browsing and purchasing products. This repository holds the codebase for the online store.
+Tali is a full-fledged online store developed to provide users with a seamless shopping experience. It offers a user-friendly interface for browsing and purchasing products. This repository holds the codebase for the online store.
 
 ## Features
 

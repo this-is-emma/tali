@@ -114,4 +114,38 @@ module.exports = (app) => {
         res.render('items-index', { items: results.docs, pagesCount: results.pages, currentPage: page, term: req.query.term});
       });
   });
+
+  // PURCHASE
+  app.post('/items/:id/purchase', (req, res) => {
+    console.log(req.body);
+    // Set your secret key: remember to change this to your live secret key in production
+    // See your keys here: https://dashboard.stripe.com/account/apikeys
+    var stripe = require("stripe")(process.env.PRIVATE_STRIPE_API_KEY);
+
+    // Token is created using Checkout or Elements!
+    // Get the payment token ID submitted by the form:
+    const token = req.body.stripeToken; // Using Express
+
+    // req.body.itemId can become null through seeding,
+    // this way we'll insure we use a non-null value
+    let itemId = req.body.itemId || req.params.id;
+
+    Item.findById(itemId).exec((err, item)=> {
+      if (err) {
+        console.log('Error: ' + err);
+        res.redirect(`/items/${req.params.id}`);
+      }
+      const charge = stripe.charges.create({
+        amount: item.price*100,
+        currency: 'cad',
+        description: `Purchased ${item.name}, ${item.type}`,
+        source: token,
+      }).then((chg) => {
+        res.redirect('/');
+      })
+      .catch(err => {
+        console.log('Error:' + err);
+      });
+    })
+  });
 }
