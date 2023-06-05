@@ -150,8 +150,10 @@ module.exports = (app) => {
           amount: chg.amount / 100,
           itemName: item.name
         };
-        // Call our mail handler to manage sending emails
-        mailer.sendMail(user, req, res);
+        // using a hardcoded recipient email as sandbox domain from mailgun require recipient authorization before sending email.
+        // Opted to use sandbox domain because custom domain required DNS verification (and domain purchase).
+        mailer.sendMail('no-reply@tali.com', 'sakatia.lise@gmail.com',
+          'thank you for your purchase', 'thank you for purchasing')
       })
       .catch(err => {
         console.log('Error:' + err);
