@@ -100,19 +100,22 @@ module.exports = (app) => {
   });
 
   // SEARCH ITEM
-  app.get('/search', (req, res) => {
-    term = new RegExp(req.query.term, 'i')
-    
-    const page = req.query.page || 1
-    Item.paginate(
-      {
-        $or: [
-          { 'name': term },
-          { 'type': term }
-        ]
-      },
-      { page: page }).then((results) => {
-        res.render('items-index', { items: results.docs, pagesCount: results.pages, currentPage: page, term: req.query.term});
+  app.get('/search', function (req, res) {
+    Item
+      .find(
+          { $text : { $search : req.query.term } },
+          { score : { $meta: "textScore" } }
+      )
+      .sort({ score : { $meta : 'textScore' } })
+      .limit(20)
+      .exec(function(err, items) {
+        if (err) { return res.status(400).send(err) }
+
+        if (req.header('Content-Type') == 'application/json') {
+          return res.json({ items: items });
+        } else {
+          return res.render('items-index', { items: items, term: req.query.term });
+        }
       });
   });
 

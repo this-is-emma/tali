@@ -24,6 +24,9 @@ const ItemSchema = new Schema({
   timestamps: true
 });
 
+//Index 
+ItemSchema.index({ name: 'text', type: 'text', color: 'text', description: 'text' });
+
 ItemSchema.plugin(mongoosePaginate);
 
 module.exports = mongoose.model('item', ItemSchema);

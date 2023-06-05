@@ -5,6 +5,7 @@ const should = chai.should();
 const Item = require('../models/item');
 
 const teresa =     {
+  "_id": "aaaaaaaaaaaa",
   "name": "teresa",
   "type": "earring",
   "picUrl": "some_url",
@@ -120,14 +121,27 @@ describe('Items', ()  => {
   });
 
 
-// SEARCH
-it('should search ALL items by name on /search GET', (done) => {
-  chai.request(server)
-      .get('/search?term=teresa')
-      .end((err, res) => {
-        res.should.have.status(200);
-        res.should.be.html;
-        done();
-      });
-});
+  // SEARCH
+  it('should search ALL items by name on /search GET', (done) => {
+    chai.request(server)
+        .get('/search?term=teresa')
+        .end((err, res) => {
+          res.should.have.status(200);
+          res.should.be.html;
+          done();
+        });
+  });
+
+  // API Endpoint
+  it('should list ALL items on /items GET', function(done) {
+    chai.request(server)
+        .get('/')
+        .set('content-type', 'application/json')
+        .end(function(err, res){
+          res.should.have.status(200);
+          res.should.be.json;
+          res.body.should.be.a('object');
+          done();
+        });
+  });
 });
