@@ -1,37 +1,35 @@
-// require our mailgun dependencies
-const nodemailer = require('nodemailer');
-const mg = require('nodemailer-mailgun-transport');
+require('dotenv').config()
 
-// auth with our mailgun API key and domain
-const auth = {
-  auth: {
-    api_key: process.env.MAILGUN_API_KEY,
-    domain: process.env.EMAIL_DOMAIN
-  }
-}
 
-// export our send mail function
-module.exports.sendMail = (user, req, res) => {
-    // send an email to the user's email with a provided template
-    nodemailerMailgun.sendMail({
-        from: 'no-reply@example.com',
-        to: user.email, // An array if you have multiple recipients.
-        subject: 'item Purchased!',
-        template: {
-            name: 'email.handlebars',
-            engine: 'handlebars',
-            context: user
-        }
-    // One mail is sent, redirect to the purchased item's page
-    }).then(info => {
-        console.log('Response: ' + info);
-        res.redirect(`/items/${req.params.id}`);
-    // Catch error and redirect to the purchased item's page
-    }).catch(err => {
-        console.log('Error: ' + err);
-        res.redirect(`/items/${req.params.id}`);
+let API_KEY = process.env.MAILGUN_API_KEY;
+
+//added sandbox domain because the domain I created required DNS verification to function.
+let DOMAIN = process.env.EMAIL_DOMAIN;
+
+const mailgun = require('mailgun-js')
+    ({ apiKey: API_KEY, domain: DOMAIN });
+ 
+module.exports.sendMail = function (sender_email, receiver_email,
+    email_subject, email_body) {
+ 
+    const data = {
+        "from": sender_email,
+        "to": receiver_email,
+        "subject": email_subject,
+        "text": email_body
+    };
+ 
+    mailgun.messages().send(data, (error, body) => {
+        if (error) console.log(error)
+        else console.log(body);
     });
 }
-
-// create a mailer
-const nodemailerMailgun = nodemailer.createTransport(mg(auth));
+ 
+let sender_email = 'no-reply@tali.com'
+let receiver_email = 'sakatia.lise@gmail.com'
+let email_subject = 'Mailgun Demo'
+let email_body = 'Greetings from tali'
+ 
+// // User-defined function to send email
+// sendMail(sender_email, receiver_email,
+//     email_subject, email_body)
