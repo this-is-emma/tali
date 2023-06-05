@@ -12,6 +12,7 @@ const bodyParser = require('body-parser');
 const methodOverride = require('method-override')
 
 const app = express();
+app.locals.PUBLIC_STRIPE_API_KEY = process.env.PUBLIC_STRIPE_API_KEY
 
 const mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost/local', {
@@ -39,7 +40,8 @@ app.use(cookieParser());
 
 
 require('./routes/index.js')(app);
-require('./routes/pets.js')(app);
+require('./routes/items.js')(app);
+
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
