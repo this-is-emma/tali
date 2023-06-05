@@ -3,8 +3,6 @@ if (!process.env.PORT) {
   process.env.NODE_ENV = "dev"
 }
 
-// server.js
-
 const express = require('express');
 const path = require('path');
 const favicon = require('serve-favicon');
@@ -44,6 +42,7 @@ app.use(cookieParser());
 require('./routes/index.js')(app);
 require('./routes/items.js')(app);
 
+
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
   const err = new Error('Not Found');
@@ -61,7 +60,5 @@ app.use((err, req, res, next) => {
   res.status(err.status || 500);
   res.render('error');
 });
-
-
 
 module.exports = app;

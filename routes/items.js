@@ -1,5 +1,6 @@
 // MODELS
 const Item = require('../models/item');
+const mailer = require('../utils/mailer');
 
 // UPLOADING TO AWS S3
 const multer  = require('multer');
@@ -141,7 +142,13 @@ module.exports = (app) => {
         description: `Purchased ${item.name}, ${item.type}`,
         source: token,
       }).then((chg) => {
-        res.redirect('/');
+        const user = {
+          email: req.body.stripeEmail,
+          amount: chg.amount / 100,
+          itemName: item.name
+        };
+        // Call our mail handler to manage sending emails
+        mailer.sendMail(user, req, res);
       })
       .catch(err => {
         console.log('Error:' + err);
